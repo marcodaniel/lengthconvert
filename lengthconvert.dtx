@@ -4,7 +4,7 @@
 %</internal>
 %<*readme>
 ----------------------------------------------------------------
-The lengthconvert package --- Convert length to an other unit.
+The lengthconvert package --- Convert a length to an other unit.
 E-mail: marco.daniel@mada-nada.de
 Released under the LaTeX Project Public License v1.3c or later
 See http://www.latex-project.org/lppl.txt
@@ -25,7 +25,7 @@ Requires expl3
 \askforoverwritefalse
 \preamble
 ----------------------------------------------------------------
-The lengthconvert package --- Convert length to an other unit.
+The lengthconvert package --- Convert a length to an other unit.
 E-mail: marco.daniel@mada-nada.de
 Released under the LaTeX Project Public License v1.3c or later
 See http://www.latex-project.org/lppl.txt
@@ -103,11 +103,10 @@ This work is "maintained" (as per LPPL maintenance status) by
 %
 % \begin{documentation}
 %
-% Sometimes it's useful for any explanation to provide length in
-% standardizations units. This package can do this for your.
+% Sometimes it's useful for some explanation to provide lengths in
+% standardizations units instead of the default unit of \TeX. 
+% This package can do this for your.
 % 
-% The command is needed for one of my other packages so I decided to
-% write a small package.
 %
 % \tableofcontents
 %
@@ -116,11 +115,11 @@ This work is "maintained" (as per LPPL maintenance status) by
 % The package needs the newest version of \pkg{l3kernel} available at CTAN. 
 % Internally it uses the modul \pkg{l3fp} to convert the length. 
 %
-% All allowed length are listed in the table below.
+% All allowed units in \TeX\ are listed in the table below.
 %
 % \begin{table}[!ht]
 % \centering
-% \caption{Allow \TeX\ units}
+% \caption{Allowed \TeX\ units}
 % \vspace*{1em}
 % \begin{tabular}{cl}
 %  \toprule
@@ -142,15 +141,16 @@ This work is "maintained" (as per LPPL maintenance status) by
 %
 % \section{Usage}
 % 
-% The usage is really simple. At the length to the main command and get the
-% result.
+% The usage is really simple. Pass the length to the command \cs{Convert}
+% and get the result.
 %
 % \begin{function}{\Convert}
 %   \begin{syntax}
 %     \cs{Convert}\oarg{options} \Arg{length}
 %   \end{syntax}
 % \end{function}
-% The command converts the given length to the unit specified by an option. 
+% The command converts the given length to the unit specified by an option. The
+% default unit is cm.
 % After the conversion the result will be printed.
 %
 % \begin{function}{\Convertsetup}
@@ -165,9 +165,11 @@ This work is "maintained" (as per LPPL maintenance status) by
 % The package is simple and the options too. 
 %
 %\DescribeOption{unit}
-% The option accept only the abbrevation unit. Allowed units are described in
-% the table above. You can also use only the abbrevation or complete word 
-% phrases without the option.  The following table list all allowed inputs.
+% The option accepts only the abbrevation unit. Allowed units are described in
+% the table above. 
+
+% You can also use only the abbrevation or a complete word. The following table
+% lists all allowed inputs.
 %
 %
 % \begin{center}
