@@ -8,7 +8,7 @@ length with the given unit.
 
 The input
 
-    \convert[unit=cm]{2pt} 
+    \Convert[unit=cm]{2pt} 
 
 results to
 
