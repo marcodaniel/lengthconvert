@@ -360,7 +360,7 @@ This work is "maintained" (as per LPPL maintenance status) by
 % Specify the precision
 %    \begin{macrocode}
 \keys_define:nn { lengthconvert } {
-  precision   .tl_set:N = \l__@@_precision_tl
+  precision   .int_set:N = \l__@@_precision_int
 }
 \keys_set:nn { lengthconvert } 
  {
@@ -441,7 +441,7 @@ This work is "maintained" (as per LPPL maintenance status) by
      { 
        \fp_eval:n 
          { 
-          round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_tl) 
+          round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
          } 
      }
    }
@@ -450,7 +450,7 @@ This work is "maintained" (as per LPPL maintenance status) by
      { 
        \fp_eval:n 
          { 
-          round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_tl) 
+          round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
          } 
      }
      {
@@ -470,13 +470,13 @@ This work is "maintained" (as per LPPL maintenance status) by
    {
     \fp_eval:n 
       { 
-       round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_tl) 
+       round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
       } 
    }
    {
     \fp_eval:n 
       { 
-       round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_tl) 
+       round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
       } \, 
     \l__@@_unit_tl
    }

@@ -91,7 +91,7 @@
   use-siunitx   .bool_set:N = \l__lconv_use_siunitx_bool
 }
 \keys_define:nn { lengthconvert } {
-  precision   .tl_set:N = \l__lconv_precision_tl
+  precision   .int_set:N = \l__lconv_precision_int
 }
 \keys_set:nn { lengthconvert }
  {
@@ -139,7 +139,7 @@
      {
        \fp_eval:n
          {
-          round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_tl)
+          round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
          }
      }
    }
@@ -148,7 +148,7 @@
      {
        \fp_eval:n
          {
-          round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_tl)
+          round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
          }
      }
      {
@@ -162,13 +162,13 @@
    {
     \fp_eval:n
       {
-       round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_tl)
+       round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
       }
    }
    {
     \fp_eval:n
       {
-       round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_tl)
+       round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
       } \,
     \l__lconv_unit_tl
    }
