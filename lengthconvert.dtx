@@ -269,16 +269,16 @@ This work is "maintained" (as per LPPL maintenance status) by
 % \begin{macro}{\@@_allowed_allunits_clist}
 %   Save all allowed units in a clist
 %    \begin{macrocode}
-\clist_new:N \l__@@_allowed_shortunits_clist
-\clist_set:Nn \l__@@_allowed_shortunits_clist
+\clist_new:N \g__@@_allowed_shortunits_clist
+\clist_gset:Nn \g__@@_allowed_shortunits_clist
    { pt , pc , in , bp , cm , mm , dd , cc ,sp }
-\clist_new:N \l__@@_allowed_longunits_clist
-\clist_set:Nn \l__@@_allowed_longunits_clist
+\clist_new:N \g__@@_allowed_longunits_clist
+\clist_gset:Nn \g__@@_allowed_longunits_clist
    { point , pica , inch , big-point , centimeter , millimeter ,
      didot-point , cicero , scaled-point }
-\clist_new:N \@@_allowed_allunits_clist
-\clist_set:NV \@@_allowed_allunits_clist \l__@@_allowed_shortunits_clist
-\clist_put_right:NV \@@_allowed_allunits_clist \l__@@_allowed_longunits_clist
+\clist_new:N \g__@@_allowed_allunits_clist
+\clist_gset:NV \g__@@_allowed_allunits_clist \g__@@_allowed_shortunits_clist
+\clist_gput_right:NV \g__@@_allowed_allunits_clist \g__@@_allowed_longunits_clist
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -409,7 +409,7 @@ This work is "maintained" (as per LPPL maintenance status) by
  {
   \group_begin:
     \keys_set:nn { lengthconvert } { #1 }
-    \clist_if_in:NVTF \@@_allowed_allunits_clist \l__@@_unit_tl
+    \clist_if_in:NVTF \g_@@_allowed_allunits_clist \l__@@_unit_tl
      {
       \bool_if:NTF \l__@@_use_siunitx_bool
        {
@@ -428,34 +428,31 @@ This work is "maintained" (as per LPPL maintenance status) by
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_calc_dim:n}
+% Output using \pkg{siunitx}
+%    \begin{macrocode}
+\cs_new:Npn \@@_calc_dim:n #1
+ {
+  \fp_eval:n 
+     { 
+      round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
+     } 
+ }
+%    \end{macrocode}
+% \end{macro}
+
 %
-%
-% \begin{macro}{\@@_using_siunitx}
+% \begin{macro}{\@@_using_siunitx:n}
 % Output using \pkg{siunitx}
 %    \begin{macrocode}
 \cs_new:Npn \@@_using_siunitx:n #1
  {
   \bool_if:NTF \l__@@_only_num_bool
    {
-    \num 
-     { 
-       \fp_eval:n 
-         { 
-          round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
-         } 
-     }
+    \num { \@@_calc_dim:n { #1 } }
    }
    {
-    \SI
-     { 
-       \fp_eval:n 
-         { 
-          round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
-         } 
-     }
-     {
-      \l__@@_unit_tl
-     }
+    \SI { \@@_calc_dim:n { #1 } } { \l__@@_unit_tl }
    }
  }
 %    \end{macrocode}
@@ -468,17 +465,10 @@ This work is "maintained" (as per LPPL maintenance status) by
  {
   \bool_if:NTF \l__@@_only_num_bool
    {
-    \fp_eval:n 
-      { 
-       round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
-      } 
+    \@@_calc_dim:n { #1 } 
    }
    {
-    \fp_eval:n 
-      { 
-       round( \dim_to_fp:n { #1 } / 1\l__@@_unit_tl , \l__@@_precision_int) 
-      } \, 
-    \l__@@_unit_tl
+    \@@_calc_dim:n { #1 } \, \l__@@_unit_tl 
    }
  }
 %    \end{macrocode}

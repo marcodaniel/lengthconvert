@@ -28,16 +28,16 @@
     \tex_endinput:D
   }
 \RequirePackage{ l3keys2e }
-\clist_new:N \l__lconv_allowed_shortunits_clist
-\clist_set:Nn \l__lconv_allowed_shortunits_clist
+\clist_new:N \g__lconv_allowed_shortunits_clist
+\clist_gset:Nn \g__lconv_allowed_shortunits_clist
    { pt , pc , in , bp , cm , mm , dd , cc ,sp }
-\clist_new:N \l__lconv_allowed_longunits_clist
-\clist_set:Nn \l__lconv_allowed_longunits_clist
+\clist_new:N \g__lconv_allowed_longunits_clist
+\clist_gset:Nn \g__lconv_allowed_longunits_clist
    { point , pica , inch , big-point , centimeter , millimeter ,
      didot-point , cicero , scaled-point }
-\clist_new:N \__lconv_allowed_allunits_clist
-\clist_set:NV \__lconv_allowed_allunits_clist \l__lconv_allowed_shortunits_clist
-\clist_put_right:NV \__lconv_allowed_allunits_clist \l__lconv_allowed_longunits_clist
+\clist_new:N \g__lconv_allowed_allunits_clist
+\clist_gset:NV \g__lconv_allowed_allunits_clist \g__lconv_allowed_shortunits_clist
+\clist_gput_right:NV \g__lconv_allowed_allunits_clist \g__lconv_allowed_longunits_clist
 \tl_new:N \l__lconv_unit_tl
 \keys_define:nn { lengthconvert }
  {
@@ -115,7 +115,7 @@
  {
   \group_begin:
     \keys_set:nn { lengthconvert } { #1 }
-    \clist_if_in:NVTF \__lconv_allowed_allunits_clist \l__lconv_unit_tl
+    \clist_if_in:NVTF \g__lconv_allowed_allunits_clist \l__lconv_unit_tl
      {
       \bool_if:NTF \l__lconv_use_siunitx_bool
        {
@@ -131,46 +131,32 @@
      }
   \group_end:
  }
+\cs_new:Npn \__lconv_calc_dim:n #1
+ {
+  \fp_eval:n
+     {
+      round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
+     }
+ }
+
 \cs_new:Npn \__lconv_using_siunitx:n #1
  {
   \bool_if:NTF \l__lconv_only_num_bool
    {
-    \num
-     {
-       \fp_eval:n
-         {
-          round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
-         }
-     }
+    \num { \__lconv_calc_dim:n { #1 } }
    }
    {
-    \SI
-     {
-       \fp_eval:n
-         {
-          round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
-         }
-     }
-     {
-      \l__lconv_unit_tl
-     }
+    \SI { \__lconv_calc_dim:n { #1 } } { \l__lconv_unit_tl }
    }
  }
 \cs_new:Npn \__lconv_nousing_siunitx:n #1
  {
   \bool_if:NTF \l__lconv_only_num_bool
    {
-    \fp_eval:n
-      {
-       round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
-      }
+    \__lconv_calc_dim:n { #1 }
    }
    {
-    \fp_eval:n
-      {
-       round( \dim_to_fp:n { #1 } / 1\l__lconv_unit_tl , \l__lconv_precision_int)
-      } \,
-    \l__lconv_unit_tl
+    \__lconv_calc_dim:n { #1 } \, \l__lconv_unit_tl
    }
  }
 \msg_new:nnnn { lengthconvert } { option-unknown }
