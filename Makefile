@@ -11,6 +11,6 @@ sty:
 
 clean:
 	rm -f  *.toc  *.out  *.log  *.ins  *.ind  *.ilg 
-	rm -f  *.idx  *.hd  *.gls  *.glo  *.aux  *.txt *~
+	rm -f  *.idx  *.hd  *.gls  *.glo  *.aux  *~
 
 all: doc sty clean
