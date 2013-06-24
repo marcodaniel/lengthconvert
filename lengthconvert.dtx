@@ -75,7 +75,6 @@ This work is "maintained" (as per LPPL maintenance status) by
 \usepackage{amsmath,array,booktabs}
 \usepackage{siunitx}
 \usepackage{lengthconvert}
-\usepackage{parskip}
 \usepackage{setspace}\onehalfspacing
 \begin{document}
   \DocInput{\jobname.dtx}
@@ -100,6 +99,8 @@ This work is "maintained" (as per LPPL maintenance status) by
 %
 % \changes{v1.0}{2013/06/13}{First official release}
 % \changes{v1.0a}{2013/06/15}{fixed typo in package name}
+% \changes{v1.0b}{2013/06/24}{fixed some explanation of code} 
+% \changes{v1.0b}{2013/06/24}{removed package \pkg{parskip} from documentation}
 % \maketitle
 %
 % \begin{documentation}
@@ -430,7 +431,7 @@ This work is "maintained" (as per LPPL maintenance status) by
 % \end{macro}
 %
 % \begin{macro}{\@@_calc_dim:n}
-% Output using \pkg{siunitx}
+% Basic calc command
 %    \begin{macrocode}
 \cs_new:Npn \@@_calc_dim:n #1
  {
@@ -460,7 +461,7 @@ This work is "maintained" (as per LPPL maintenance status) by
 % \end{macro}
 %
 % \begin{macro}{\@@_nousing_siunitx:n}
-% Output using \pkg{siunitx}
+% Output using not \pkg{siunitx}
 %    \begin{macrocode}
 \cs_new:Npn \@@_nousing_siunitx:n #1
  {
@@ -509,9 +510,14 @@ This work is "maintained" (as per LPPL maintenance status) by
 % \end{implementation}
 %
 % \begingroup
-% \clearpage
-% \let\part\section
-% \PrintChanges
+%  \clearpage
+%  \let\part\section
+%  \begingroup
+%   ^^A\raggedright
+%   ^^A\let\pfill\relax
+%   ^^A\def\hdpindex#1#2{\hfill\null}
+%   \PrintChanges
+%  \endgroup
 % \clearpage
 % \PrintIndex
 % \endgroup
